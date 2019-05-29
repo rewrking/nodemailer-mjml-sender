@@ -39,7 +39,7 @@ const main = async () => {
                     from: `"${sender.name}" <${sender.email}>`,
                     to: recipients,
                     subject: "CAT FACTS",
-                    html: createEmail(resultJson.fact)
+                    html: createEmail({ fact: resultJson.fact })
                 });
                 console.log("Message sent: %s", info.messageId);
                 if (env.ethereal) {
