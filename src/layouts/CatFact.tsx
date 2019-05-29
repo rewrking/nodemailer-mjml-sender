@@ -1,11 +1,11 @@
 import React from "react";
-import { Mjml, Body, Head, Section, Text, Font } from ".";
+import { Mjml, Body, Head, Section, Text, Font } from "../components";
 
-interface EmailProps {
-    data: any;
+export interface CatFactProps {
+    fact: string;
 }
 
-export default (props: EmailProps) => {
+export default (props: CatFactProps) => {
     return (
         <Mjml>
             <Head>
@@ -19,7 +19,7 @@ export default (props: EmailProps) => {
                 </Section>
                 <Section backgroundColor="white" padding="24px 16px">
                     <Text align="center" color="#333" fontSize="20px" lineHeight="30px" fontFamily="Raleway">
-                        %CAT_FACT%
+                        {props.fact}
                     </Text>
                 </Section>
                 <Section backgroundColor="#fbfbfb"> </Section>

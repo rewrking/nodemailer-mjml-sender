@@ -1,11 +1,9 @@
 import React from "react";
-import ReactDOMServer from "react-dom/server";
+import { render } from "mjml-react";
 
-import Email from "./components/Email";
+import CatFact, { CatFactProps } from "./layouts/CatFact";
 
-export default (data: any) => {
-    const App = <Email data={data} />;
-    const content = ReactDOMServer.renderToStaticMarkup(App);
-
-    return content;
+export default (props: CatFactProps) => {
+    const result = render(<CatFact fact={props.fact} />, { validationLevel: "soft" });
+    return result.html;
 };
