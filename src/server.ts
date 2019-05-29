@@ -9,11 +9,16 @@ const main = async () => {
      * 587/2525/25 - Non-secure
      * 465 - SSL
      */
+    const { user, pass } = await nodemailer.createTestAccount();
+
     const etherealSettings = {
         host: "smtp.ethereal.email",
         port: 587,
         secure: false,
-        auth: env.authEthereal
+        auth: {
+            user,
+            pass
+        }
     };
 
     const gmailSettings = {

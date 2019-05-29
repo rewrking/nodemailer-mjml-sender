@@ -5,9 +5,6 @@ Node.js based emailer using MJML & mjml-react
 To run, create a .env file with the following:
 
 ```
-ETHEREAL_EMAIL=(generate a user/pass from Ethereal)
-ETHEREAL_PASS=(generate a user/pass from Ethereal)
-
 GMAIL_EMAIL=(your gmail)
 GMAIL_APP_PASS=(create a gmail app password)
 

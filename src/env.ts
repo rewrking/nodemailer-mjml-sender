@@ -13,10 +13,6 @@ export default {
         user: process.env.GMAIL_EMAIL,
         pass: process.env.GMAIL_APP_PASS
     },
-    authEthereal: {
-        user: process.env.ETHEREAL_EMAIL,
-        pass: process.env.ETHEREAL_PASS
-    },
     sender: {
         name: process.env.SENDER_NAME,
         email: process.env.SENDER_EMAIL
