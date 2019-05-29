@@ -1,5 +1,5 @@
 import React from "react";
-import { Mjml, Body, Head, Section, Text, Font } from "../components";
+import { Mjml, Body, Head, Section, Text, Font } from "../components/Mjml";
 
 export interface CatFactProps {
     fact: string;
