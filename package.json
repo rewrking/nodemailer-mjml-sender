@@ -1,0 +1,32 @@
+{
+    "name": "mailbait-runner",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "ts-node ./src/server.ts"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^8.0.0",
+        "fs": "^0.0.1-security",
+        "nodemailer": "^6.2.1",
+        "nodemon": "^1.19.1",
+        "path": "^0.12.7",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "request": "^2.88.0",
+        "request-promise-native": "^1.0.7",
+        "typescript": "^3.4.5"
+    },
+    "devDependencies": {
+        "@types/dotenv": "^6.1.1",
+        "@types/nodemailer": "^6.1.1",
+        "@types/react": "^16.8.19",
+        "@types/react-dom": "^16.8.4",
+        "@types/request-promise-native": "^1.0.16",
+        "prettier": "^1.17.1"
+    }
+}
