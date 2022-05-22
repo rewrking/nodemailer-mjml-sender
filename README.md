@@ -1,6 +1,6 @@
 # node-emailer
 
-Node.js based emailer using MJML & mjml-react
+Node.js based emailer using MJML
 
 To run, create a .env file with the following:
 

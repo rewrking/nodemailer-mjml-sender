@@ -5,29 +5,25 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "ts-node ./src/server.ts"
+        "start": "ts-node ./src/server.ts",
+        "build": "tsc"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "dotenv": "^9.0.2",
-        "mjml": "^4.9.3",
-        "mjml-react": "^1.2.0",
-        "nodemailer": "^6.6.0",
-        "nodemon": "^2.0.7",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "request": "^2.88.2",
-        "request-promise-native": "^1.0.9",
-        "typescript": "^4.2.4"
+        "dotenv": "16.0.1",
+        "isomorphic-fetch": "3.0.0",
+        "mjml": "4.12.0",
+        "mjml-core": "4.12.0",
+        "nodemailer": "6.7.5",
+        "typescript": "4.6.4"
     },
     "devDependencies": {
-        "@types/mjml-react": "^1.0.6",
-        "@types/nodemailer": "^6.4.1",
-        "@types/react": "^17.0.5",
-        "@types/react-dom": "^17.0.3",
-        "@types/request-promise-native": "^1.0.17",
-        "prettier": "^2.0.3",
-        "ts-node": "^9.1.1"
+        "@types/isomorphic-fetch": "0.0.36",
+        "@types/mjml": "4.7.0",
+        "@types/node": "17.0.35",
+        "@types/nodemailer": "6.4.4",
+        "prettier": "2.6.2",
+        "ts-node": "10.8.0"
     }
 }

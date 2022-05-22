@@ -6,16 +6,18 @@ const ethereal: boolean = process.env.ETHEREAL === "true";
 
 const recipients = development ? process.env.RECIPIENTS_DEV! : process.env.RECIPIENTS_PROD!;
 
-export default {
+const env = {
     ethereal,
     development,
     authGmail: {
         user: process.env.GMAIL_EMAIL,
-        pass: process.env.GMAIL_APP_PASS
+        pass: process.env.GMAIL_APP_PASS,
     },
     sender: {
         name: process.env.SENDER_NAME,
-        email: process.env.SENDER_EMAIL
+        email: process.env.SENDER_EMAIL,
     },
-    recipients: recipients.split(",")
+    recipients: recipients.split(","),
 };
+
+export { env };

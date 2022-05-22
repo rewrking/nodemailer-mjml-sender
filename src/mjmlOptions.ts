@@ -1,10 +1,10 @@
-import { Mjml2HtmlOptions } from "mjml-react";
+import { MJMLParsingOptions } from "mjml-core";
 
-const mjmlOptions: Mjml2HtmlOptions = {
+const mjmlOptions: MJMLParsingOptions = {
     keepComments: false,
     beautify: false,
     minify: true,
-    validationLevel: "soft"
+    validationLevel: "soft",
 };
 
-export default mjmlOptions;
+export { mjmlOptions };

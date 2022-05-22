@@ -1,8 +1,9 @@
 import nodemailer from "nodemailer";
-import request from "request-promise-native";
-import env from "./env";
+import fetch from "isomorphic-fetch";
 
-import createEmail from "./createEmail";
+import { env } from "./env";
+import { createEmail } from "./createEmail";
+import { CatFact } from "./layouts/CatFact";
 
 const main = async () => {
     /**
@@ -17,34 +18,35 @@ const main = async () => {
         secure: false,
         auth: {
             user,
-            pass
-        }
+            pass,
+        },
     };
 
     const gmailSettings = {
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
-        auth: env.authGmail
+        auth: env.authGmail,
     };
 
     const transporter = nodemailer.createTransport(env.ethereal ? etherealSettings : gmailSettings);
 
+    const { sender, recipients } = env;
+
     const EMAIL_COUNT: number = 1;
-
-    const sender = env.sender;
-    const recipients = env.recipients;
-
-    for (let i = 0; i < EMAIL_COUNT; i++) {
+    for (let i = 0; i < EMAIL_COUNT; ++i) {
         setTimeout(async () => {
             try {
-                const res = await request("https://catfact.ninja/fact");
-                const resultJson = JSON.parse(res);
+                const res = await fetch("https://catfact.ninja/fact");
+                if (res.status !== 200) {
+                    throw new Error("error getting cat facts");
+                }
+                const resultJson = await res.json();
                 let info = await transporter.sendMail({
                     from: `"${sender.name}" <${sender.email}>`,
                     to: recipients,
                     subject: "CAT FACTS",
-                    html: createEmail({ fact: resultJson.fact })
+                    html: createEmail(CatFact, { fact: resultJson.fact }),
                 });
                 console.log("Message sent: %s", info.messageId);
                 if (env.ethereal) {
