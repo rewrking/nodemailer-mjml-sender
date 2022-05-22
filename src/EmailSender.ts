@@ -4,6 +4,7 @@ import {
     SentMessageInfo,
     Transporter,
 } from "nodemailer";
+import html2text from "html-to-text";
 import { minify } from "html-minifier";
 import { MjmlReader, MjmlTemplateProps } from "./MjmlReader";
 
@@ -21,6 +22,7 @@ export type SentEmailDetails = {
         to: string[];
     };
     messageId: string;
+    text: string;
     html: string;
 };
 
@@ -43,9 +45,12 @@ export type EmailSenderUser = {
 
 export type EmailSenderOptions = {
     sender: EmailSenderUser;
-    recipients: string[];
+    to: string[];
     subject: string;
     html: string;
+    cc?: string[];
+    bcc?: string[];
+    replyTo?: string;
 };
 
 type TestAccountDetails = {
@@ -62,7 +67,10 @@ export type TransporterDetails = {
 export type SenderDetails = {
     subject(value: EmailSenderOptions["subject"]): SenderDetails;
     from(sender: Partial<EmailSenderOptions["sender"]>): SenderDetails;
-    recipients(recipients: EmailSenderOptions["recipients"]): SenderDetails;
+    to(to: EmailSenderOptions["to"]): SenderDetails;
+    cc(cc: EmailSenderOptions["cc"]): SenderDetails;
+    bcc(bcc: EmailSenderOptions["bcc"]): SenderDetails;
+    replyTo(replyTo: EmailSenderOptions["replyTo"]): SenderDetails;
     template(file: string, props?: MjmlTemplateProps): void;
 };
 
@@ -88,7 +96,7 @@ class EmailSender {
             name: "",
             email: "",
         },
-        recipients: [],
+        to: [],
         html: "",
     };
     private transporterInst: Optional<Transporter<SentMessageInfo>> = null;
@@ -141,8 +149,20 @@ class EmailSender {
             };
             return this;
         },
-        recipients: function (recipients: EmailSenderOptions["recipients"]) {
-            parent.senderOptions.recipients = recipients;
+        to: function (to: EmailSenderOptions["to"]) {
+            parent.senderOptions.to = to;
+            return this;
+        },
+        cc: function (cc: EmailSenderOptions["cc"]) {
+            parent.senderOptions.cc = cc;
+            return this;
+        },
+        bcc: function (bcc: EmailSenderOptions["bcc"]) {
+            parent.senderOptions.bcc = bcc;
+            return this;
+        },
+        replyTo: function (bcc: EmailSenderOptions["replyTo"]) {
+            parent.senderOptions.replyTo = bcc;
             return this;
         },
         template: function (file: string, props?: MjmlTemplateProps): void {
@@ -196,13 +216,14 @@ class EmailSender {
         if (this.transporterInst === null) {
             this.transporterInst = await this.createTransport();
         }
-        const { sender, recipients, subject, html } = this.senderOptions;
+        const { sender, to, subject, html, ...senderOptions } =
+            this.senderOptions;
         if (sender.name.length === 0 || sender.email.length === 0) {
             throw new Error(
                 "Can't send email: Sender name and/or email cannot be blank"
             );
         }
-        if (recipients.length === 0) {
+        if (to.length === 0) {
             throw new Error(
                 "Can't send email: Must have at least one recipient"
             );
@@ -214,6 +235,12 @@ class EmailSender {
             throw new Error("Can't send email: html content must not be blank");
         }
 
+        const text = html2text
+            .convert(html, {
+                wordwrap: 130,
+            })
+            .replace(/\n\n/g, "\n");
+
         if (simulate) {
             let domain: string;
             if (sender.email.includes("@")) {
@@ -222,7 +249,7 @@ class EmailSender {
                 domain = sender.email;
             }
             return {
-                accepted: recipients,
+                accepted: to,
                 rejected: [],
                 envelopeTime: 0,
                 messageTime: 0,
@@ -230,20 +257,24 @@ class EmailSender {
                 response: "250 2.0.0 OK",
                 envelope: {
                     from: sender.email,
-                    to: recipients,
+                    to,
                 },
                 messageId: `<9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d@${domain}>`,
+                text,
                 html,
             };
         } else {
             const info = await this.transporterInst.sendMail({
+                ...senderOptions,
                 from: `"${sender.name}" <${sender.email}>`,
-                to: recipients,
+                to,
                 subject,
+                text,
                 html,
             });
             return {
                 ...info,
+                text,
                 html,
             };
         }

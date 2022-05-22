@@ -26,7 +26,7 @@ async function sendEmail() {
             name: "John Doe",
             email: "foo@bar.biz"
         })
-        .recipients(["bar@foo.biz"])
+        .to(["bar@foo.biz"])
         .subject("You have an email!")
         .template(path.join(templatePath, "email-template.mjml"), {
             variable: "Here is some dynamic variable that needs to be replaced",
