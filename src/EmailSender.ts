@@ -9,6 +9,21 @@ import { MjmlReader, MjmlTemplateProps } from "./MjmlReader";
 
 type Optional<T> = T | null;
 
+export type SentEmailDetails = {
+    accepted: string[];
+    rejected: string[];
+    envelopeTime: number;
+    messageTime: number;
+    messageSize: number;
+    response: string;
+    envelope: {
+        from: string;
+        to: string[];
+    };
+    messageId: string;
+    html: string;
+};
+
 export type TransporterAuthUser = {
     user: string;
     pass: string;
@@ -163,7 +178,7 @@ class EmailSender {
         }
     };
 
-    send = async (simulate: boolean = false): Promise<any> => {
+    send = async (simulate: boolean = false): Promise<SentEmailDetails> => {
         if (this.transporterInst === null) {
             this.transporterInst = await this.createTransport();
         }
@@ -185,21 +200,38 @@ class EmailSender {
             throw new Error("Can't send email: html content must not be blank");
         }
 
-        if (!simulate) {
+        if (simulate) {
+            let domain: string;
+            if (sender.email.includes("@")) {
+                domain = sender.email.split("@")[1];
+            } else {
+                domain = sender.email;
+            }
+            return {
+                accepted: recipients,
+                rejected: [],
+                envelopeTime: 0,
+                messageTime: 0,
+                messageSize: 0,
+                response: "250 2.0.0 OK",
+                envelope: {
+                    from: sender.email,
+                    to: recipients,
+                },
+                messageId: `<9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d@${domain}>`,
+                html,
+            };
+        } else {
             const info = await this.transporterInst.sendMail({
                 from: `"${sender.name}" <${sender.email}>`,
                 to: recipients,
                 subject,
                 html,
             });
-            console.log("Email sent:", info.messageId);
-            /*if (env.ethereal) {
-                console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            }*/
-            return info;
-        } else {
-            console.log(html);
-            return {};
+            return {
+                ...info,
+                html,
+            };
         }
     };
 }

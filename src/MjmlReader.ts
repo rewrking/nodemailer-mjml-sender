@@ -46,9 +46,7 @@ class MjmlReader {
         try {
             data = fs.readFileSync(filePath, "utf-8");
         } catch (err: any) {
-            console.error(err);
-            console.error(`Error reading the file: ${file}.`);
-            return "";
+            throw new Error(`Error reading the file: ${file}. ${err.message}`);
         }
 
         const parsed: string = data.replace(

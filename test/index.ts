@@ -41,7 +41,13 @@ const main = async () => {
             fact: resultJson.fact,
         });
 
-    await mailer.send(env.simulate);
+    const result = await mailer.send(env.simulate);
+    if (env.simulate) {
+        console.log("Email sent:", result.messageId);
+        console.log(result);
+    } else {
+        console.log("Email sent:", result.messageId);
+    }
 };
 
 try {

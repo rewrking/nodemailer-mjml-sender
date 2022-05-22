@@ -14,6 +14,13 @@
     "repository": {
         "url": "git@github.com:rewrking/nodemailer-mjml-sender.git"
     },
+    "keywords": [
+        "mjml",
+        "nodemailer",
+        "email",
+        "contact",
+        "form"
+    ],
     "dependencies": {
         "html-minifier": "4.0.0",
         "mjml": "4.12.0",

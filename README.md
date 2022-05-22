@@ -7,9 +7,10 @@ The MJML template can take basic handlebars-style variables like `{{ variable }}
 Example usage:
 
 ```typescript
-    import path from "path";
-    import { EmailSender } from "nodemailer-mjml-wrapper";
+import path from "path";
+import { EmailSender } from "nodemailer-mjml-wrapper";
 
+async function sendEmail() {
     const mailer = new EmailSender();
     mailer.transporter
         .host("smtp.gmail.com")
@@ -31,7 +32,9 @@ Example usage:
             variable: "Here is some dynamic variable that needs to be replaced",
         });
 
-    await mailer.send();
+    const result = await mailer.send();
+    console.log("Email sent:", result.messageId);
+}
 ```
 
 See the repository's test folder for a more complete example.
