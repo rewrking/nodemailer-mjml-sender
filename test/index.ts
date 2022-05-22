@@ -34,7 +34,7 @@ const main = async () => {
 
     const templatePath = path.join(process.cwd(), "templates");
     mailer.sender
-        .sender(env.sender)
+        .from(env.sender)
         .recipients(env.recipients)
         .subject("CAT FACTS")
         .template(path.join(templatePath, "cat-facts.mjml"), {

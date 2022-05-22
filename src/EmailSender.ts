@@ -52,6 +52,20 @@ type TestAccountDetails = {
     apiUrl?: string;
 };
 
+export type TransporterDetails = {
+    host(value: EmailTransporterOptions["host"]): TransporterDetails;
+    secure(value: boolean, port?: number): TransporterDetails;
+    account(authUser: Partial<TransporterAuthUser>): TransporterDetails;
+    testAccount(apiUrl?: string): TransporterDetails;
+};
+
+export type SenderDetails = {
+    subject(value: EmailSenderOptions["subject"]): SenderDetails;
+    from(sender: Partial<EmailSenderOptions["sender"]>): SenderDetails;
+    recipients(recipients: EmailSenderOptions["recipients"]): SenderDetails;
+    template(file: string, props?: MjmlTemplateProps): void;
+};
+
 /**
     587/2525/25 - Non-secure
     465 - SSL
@@ -83,7 +97,7 @@ class EmailSender {
     /*
         Transporter
     */
-    transporter = ((parent: typeof this) => ({
+    transporter: TransporterDetails = ((parent: typeof this) => ({
         host: function (value: EmailTransporterOptions["host"]) {
             parent.transporterOptions.host = value;
             return this;
@@ -112,12 +126,12 @@ class EmailSender {
     /*
         Sender
     */
-    sender = ((parent: typeof this) => ({
+    sender: SenderDetails = ((parent: typeof this) => ({
         subject: function (value: EmailSenderOptions["subject"]) {
             parent.senderOptions.subject = value;
             return this;
         },
-        sender: function ({
+        from: function ({
             name,
             email,
         }: Partial<EmailSenderOptions["sender"]>) {

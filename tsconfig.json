@@ -3,10 +3,7 @@
         "target": "es5",
         "module": "ES2020",
         "lib": [
-            "ESNext",
-            "ESNext.ASyncIterable",
-            "DOM",
-            "DOM.Iterable"
+            "ESNext"
         ],
         "sourceMap": true,
         "outDir": "./dist/esm",

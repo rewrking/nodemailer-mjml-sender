@@ -22,7 +22,7 @@ async function sendEmail() {
 
     const templatePath = path.join(process.cwd(), "templates");
     mailer.sender
-        .sender({
+        .from({
             name: "John Doe",
             email: "foo@bar.biz"
         })
