@@ -40,8 +40,6 @@ type TestAccountDetails = {
 /**
     587/2525/25 - Non-secure
     465 - SSL
-
-    smtp.gmail.com
 */
 
 class EmailSender {
@@ -75,9 +73,9 @@ class EmailSender {
             parent.transporterOptions.host = value;
             return this;
         },
-        secure: function (value: boolean) {
+        secure: function (value: boolean, port?: number) {
             parent.transporterOptions.secure = value;
-            parent.transporterOptions.port = value ? 465 : 587;
+            parent.transporterOptions.port = port ?? (value ? 465 : 587);
             return this;
         },
         account: function ({ user, pass }: Partial<TransporterAuthUser>) {

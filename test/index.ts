@@ -2,7 +2,21 @@ import fetch from "isomorphic-fetch";
 import path from "path";
 
 import { env } from "./Environment";
-import { EmailSender } from "./EmailSender";
+import { EmailSender } from "../src/EmailSender";
+
+/*
+    To run the test, create a .env file with the following:
+
+    GMAIL_EMAIL=(your gmail)
+    GMAIL_APP_PASS=(create a gmail app password)
+
+    SENDER_NAME=(Your name)
+    SENDER_EMAIL=(Your gmail)
+
+    EMAIL_RECIPIENTS=(comma-separated recipients)
+
+    EMAIL_SIMULATE=(set to true to simulate sending the email, false to actually send it)
+*/
 
 const main = async () => {
     const mailer = new EmailSender();

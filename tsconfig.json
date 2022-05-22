@@ -1,47 +1,37 @@
 {
     "compilerOptions": {
-        "paths": {
-            "*": [
-                "types/*"
-            ]
-        },
-        "target": "ES2016",
-        "module": "commonjs",
+        "target": "es5",
+        "module": "ES2020",
         "lib": [
-            "dom",
-            "dom.iterable",
             "ESNext",
-            "ESNext.AsyncIterable"
+            "ESNext.ASyncIterable",
+            "DOM",
+            "DOM.Iterable"
         ],
         "sourceMap": true,
+        "outDir": "./dist/esm",
         "moduleResolution": "node",
-        "declaration": false,
+        "declaration": true,
         "composite": false,
-        "removeComments": true,
-        "noImplicitAny": false,
+        "removeComments": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "noImplicitAny": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noImplicitThis": true,
-        "noUnusedLocals": false,
+        "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
         "preserveWatchOutput": true,
-        "skipLibCheck": true,
-        "baseUrl": ".",
-        "outDir": "build/",
-        "allowJs": true,
-        "noEmit": true,
         "preserveConstEnums": true,
-        "strict": true
+        "skipLibCheck": true,
+        "baseUrl": "./src"
     },
     "include": [
-        "pages/**/*.ts",
-        "src/**/*.ts"
+        "./src/**/*.ts"
     ],
     "exclude": [
         "node_modules"

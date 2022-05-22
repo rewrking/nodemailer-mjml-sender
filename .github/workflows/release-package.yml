@@ -1,0 +1,24 @@
+name: "🍍 Publish version"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org/"
+      - name: "🧹 Remove development files"
+        run: rm -rf node_modules src test templates .vscode .github tsconfig.json tsconfig-cjs.json tsconfig-test.json .prettierrc .env push_version.sh
+      - name: "🚀 Publish"
+        run: |
+          npm install
+          npm publish --access public

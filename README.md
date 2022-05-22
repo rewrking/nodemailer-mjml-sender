@@ -1,19 +1,41 @@
-# node-emailer
+# nodemailer-mjml-wrapper
 
-Node.js based emailer using MJML
+"EmailSender" wrapper class around nodeemailer & MJML. Simply read from an mjml file, setup the transporter & sender, and voila!
 
-To run, create a .env file with the following:
+The MJML template can take basic handlebars-style variables like `{{ variable }}`.
 
+Example usage:
+
+```typescript
+    import path from "path";
+    import { EmailSender } from "nodemailer-mjml-wrapper";
+
+    const mailer = new EmailSender();
+    mailer.transporter
+        .host("smtp.gmail.com")
+        .secure(true)
+        .account({
+            user: "...",
+            pass: "..."
+        });
+
+    const templatePath = path.join(process.cwd(), "templates");
+    mailer.sender
+        .sender({
+            name: "John Doe",
+            email: "foo@bar.biz"
+        })
+        .recipients(["bar@foo.biz"])
+        .subject("You have an email!")
+        .template(path.join(templatePath, "email-template.mjml"), {
+            variable: "Here is some dynamic variable that needs to be replaced",
+        });
+
+    await mailer.send();
 ```
-GMAIL_EMAIL=(your gmail)
-GMAIL_APP_PASS=(create a gmail app password)
 
-SENDER_NAME=(Your name)
-SENDER_EMAIL=(Your gmail)
+See the repository's test folder for a more complete example.
 
-EMAIL_RECIPIENTS=(comma-separated recipients)
-
-EMAIL_SIMULATE=(set to true to simulate sending the email, false to actually send it)
-```
+---
 
 Use for good, comply with the CAN-SPAM Act, etc.
