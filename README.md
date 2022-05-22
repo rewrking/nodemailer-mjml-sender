@@ -13,7 +13,7 @@ SENDER_EMAIL=(Your gmail)
 
 EMAIL_RECIPIENTS=(comma-separated recipients)
 
-SEND_EMAIL=(set to true to actually send the email, false to just compile the mjml)
+EMAIL_SIMULATE=(set to true to simulate sending the email, false to actually send it)
 ```
 
 Use for good, comply with the CAN-SPAM Act, etc.

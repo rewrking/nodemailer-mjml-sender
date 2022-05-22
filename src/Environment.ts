@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const sendEmail: boolean = process.env.SEND_EMAIL === "true";
+const simulate: boolean = process.env.EMAIL_SIMULATE === "true";
 
 const recipients = process.env.EMAIL_RECIPIENTS ?? "";
 
@@ -14,7 +14,7 @@ const env = {
         name: process.env.SENDER_NAME,
         email: process.env.SENDER_EMAIL,
     },
-    sendEmail,
+    simulate,
     recipients: recipients.replace(/ /g, "").split(","),
 };
 
