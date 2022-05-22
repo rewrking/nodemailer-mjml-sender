@@ -1,14 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const development: boolean = process.env.DEVELOPMENT === "true";
-const ethereal: boolean = process.env.ETHEREAL === "true";
+const sendEmail: boolean = process.env.SEND_EMAIL === "true";
 
-const recipients = development ? process.env.RECIPIENTS_DEV! : process.env.RECIPIENTS_PROD!;
+const recipients = process.env.EMAIL_RECIPIENTS ?? "";
 
 const env = {
-    ethereal,
-    development,
     authGmail: {
         user: process.env.GMAIL_EMAIL,
         pass: process.env.GMAIL_APP_PASS,
@@ -17,7 +14,8 @@ const env = {
         name: process.env.SENDER_NAME,
         email: process.env.SENDER_EMAIL,
     },
-    recipients: recipients.split(","),
+    sendEmail,
+    recipients: recipients.replace(/ /g, "").split(","),
 };
 
 export { env };

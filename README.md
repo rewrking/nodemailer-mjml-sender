@@ -8,14 +8,12 @@ To run, create a .env file with the following:
 GMAIL_EMAIL=(your gmail)
 GMAIL_APP_PASS=(create a gmail app password)
 
-DEVELOPMENT=true
-ETHEREAL=true (set to false to use gmail)
-
 SENDER_NAME=(Your name)
 SENDER_EMAIL=(Your gmail)
 
-RECIPIENTS_DEV=(comma-separated recipients if in DEVELOPMENT=true)
-RECIPIENTS_PROD=(comma-separated recipients if DEVELOPMENT=false
+EMAIL_RECIPIENTS=(comma-separated recipients)
+
+SEND_EMAIL=(set to true to actually send the email, false to just compile the mjml)
 ```
 
 Use for good, comply with the CAN-SPAM Act, etc.
