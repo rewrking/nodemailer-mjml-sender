@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org/"
-      - name: "Build"
+      - name: "⚒️ Build"
         run: |
           npm install
           npm run build
