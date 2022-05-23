@@ -30,9 +30,7 @@ class MjmlReader {
     createEmailFromFile = (filePath: string, props?: MjmlTemplateProps) => {
         const file = path.basename(filePath);
         if (!filePath.endsWith(".mjml")) {
-            throw new Error(
-                `MjmlReader.createEmail expects file to end in '.mjml', found: ${file}`
-            );
+            throw new Error(`MjmlReader.createEmail expects file to end in '.mjml', found: ${file}`);
         }
 
         if (!fs.existsSync(filePath)) {
@@ -49,27 +47,24 @@ class MjmlReader {
             throw new Error(`Error reading the file: ${file}. ${err.message}`);
         }
 
-        const parsed: string = data.replace(
-            /{{\s*(\w+)\s*}}/g,
-            (_match: string, p1: string) => {
-                if (props) {
-                    const val = props[p1];
-                    if (val) {
-                        switch (typeof val) {
-                            case "string":
-                                return val;
-                            case "number":
-                                return `${val}`;
-                            case "boolean":
-                                return val ? "true" : "false";
-                            default:
-                                break;
-                        }
+        const parsed: string = data.replace(/{{\s*(\w+)\s*}}/g, (_match: string, p1: string) => {
+            if (props) {
+                const val = props[p1];
+                if (val) {
+                    switch (typeof val) {
+                        case "string":
+                            return val;
+                        case "number":
+                            return `${val}`;
+                        case "boolean":
+                            return val ? "true" : "false";
+                        default:
+                            break;
                     }
                 }
-                return "undefined";
             }
-        );
+            return "undefined";
+        });
 
         const result = mjml2html(parsed, this.options);
         return result.html;

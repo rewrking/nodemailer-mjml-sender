@@ -1,9 +1,4 @@
-import {
-    createTestAccount,
-    createTransport,
-    SentMessageInfo,
-    Transporter,
-} from "nodemailer";
+import { createTestAccount, createTransport, SentMessageInfo, Transporter } from "nodemailer";
 import html2text from "html-to-text";
 import { minify } from "html-minifier";
 import { MjmlReader, MjmlTemplateProps } from "./MjmlReader";
@@ -139,10 +134,7 @@ class EmailSender {
             parent.senderOptions.subject = value;
             return this;
         },
-        from: function ({
-            name,
-            email,
-        }: Partial<EmailSenderOptions["sender"]>) {
+        from: function ({ name, email }: Partial<EmailSenderOptions["sender"]>) {
             parent.senderOptions.sender = {
                 name: name ?? "",
                 email: email ?? "",
@@ -197,13 +189,9 @@ class EmailSender {
             const { user, pass } = this.transporterOptions.auth;
             if (user.length === 0 || pass.length === 0) {
                 if (this.testAccount !== null) {
-                    this.transporterOptions.auth = await createTestAccount(
-                        this.testAccount.apiUrl
-                    );
+                    this.transporterOptions.auth = await createTestAccount(this.testAccount.apiUrl);
                 } else {
-                    throw new Error(
-                        "user name and/or password cannot be blank"
-                    );
+                    throw new Error("user name and/or password cannot be blank");
                 }
             }
             return createTransport(this.transporterOptions);
@@ -216,17 +204,12 @@ class EmailSender {
         if (this.transporterInst === null) {
             this.transporterInst = await this.createTransport();
         }
-        const { sender, to, subject, html, ...senderOptions } =
-            this.senderOptions;
+        const { sender, to, subject, html, ...senderOptions } = this.senderOptions;
         if (sender.name.length === 0 || sender.email.length === 0) {
-            throw new Error(
-                "Can't send email: Sender name and/or email cannot be blank"
-            );
+            throw new Error("Can't send email: Sender name and/or email cannot be blank");
         }
         if (to.length === 0) {
-            throw new Error(
-                "Can't send email: Must have at least one recipient"
-            );
+            throw new Error("Can't send email: Must have at least one recipient");
         }
         if (subject.length === 0) {
             throw new Error("Can't send email: Subject must not be blank");
