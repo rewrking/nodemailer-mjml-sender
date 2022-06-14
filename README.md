@@ -1,6 +1,6 @@
-# nodemailer-mjml-wrapper
+# nodemailer-mjml-sender
 
-"EmailSender" wrapper class around nodeemailer & MJML. Simply read from an mjml file, setup the transporter & sender, and voila!
+"EmailSender" wrapper class around nodemailer & MJML. Simply read from an mjml file, setup the transporter & sender, and voila!
 
 The MJML template can take basic handlebars-style variables like `{{ variable }}`.
 
