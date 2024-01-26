@@ -1,6 +1,6 @@
 {
     "name": "nodemailer-mjml-sender",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Andrew R. King",
     "description": "Wrapper class around nodemailer & mjml to effortlessly send an email from a node server",
     "license": "MIT",
