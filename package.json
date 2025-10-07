@@ -26,7 +26,7 @@
         "html-to-text": "8.2.0",
         "mjml": "4.12.0",
         "mjml-core": "4.12.0",
-        "nodemailer": "6.7.5"
+        "nodemailer": "7.0.7"
     },
     "devDependencies": {
         "@types/html-minifier": "4.0.2",
